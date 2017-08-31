@@ -1,0 +1,43 @@
+                ;==================================================
+                ;=============   PORTs  DEFINE   ==================
+                ;==================================================
+                ;--------------
+                ;System Control
+                ;--------------
+                ;OUT PORT defines
+                CONSTANT IN_PORT, 0'd
+                ;IN PORT defines
+                CONSTANT OUT_PORT, 0'd
+                ;==================================================
+                ;==================   PROGRAM   ===================
+                ;==================================================
+ program_start: 
+                ;------------------
+                ;GLOBAL PARAMETERs(2)
+                ;------------------
+                LOAD sF, 1'd
+                LOAD sE, 0'd
+                LOAD s0, 0'd           ;Global temporary register
+                LOAD s1, 0'd           ;temporary counter
+                ;--------------
+                ;LOOP OPERATION
+                ;--------------
+loop_operation: INPUT s0, IN_PORT
+                COMPARE s0, s1
+                JUMP Z, loop_operation
+                LOAD s1, s0
+                OUTPUT s1, OUT_PORT
+                ;--------------
+                ;END OPERATION(1)
+                ;--------------
+   program_end: ENABLE INTERRUPT
+          loop: JUMP loop_operation    ;
+                ;==================================================
+                ;=================   INTERRUPT   ==================
+                ;==================================================
+                ADDRESS 2FF
+           ISR: 
+                ;INPUT   s2, INT_CMD
+                ;COMPARE s2, SPEED_LINE_CONFIG
+                ;JUMP    Z,  spd_line_cfg
+                RETURNI ENABLE
