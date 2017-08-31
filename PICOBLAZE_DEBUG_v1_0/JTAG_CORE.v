@@ -82,6 +82,7 @@ module JTAG_CORE#(
 	input	[17:0]				jtag_dout_7
     );
 ///////////////////////////////////////////////////////////////////////////////////
+	//JTAG链路只允许连接8个。
 	localparam					MAX_JTAG_CHAIN_CNT = 8;
 	
 	wire	[MAX_JTAG_CHAIN_CNT-1:0]		jtag_rst;
